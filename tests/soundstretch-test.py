@@ -1,0 +1,23 @@
+#! /usr/local/bin/python3
+
+import sys
+import argparse
+from soundstretch import SoundStretch
+
+def main():
+    print ("Sound Stretch")
+    parser = argparse.ArgumentParser(description='ssstretch a wav file.')
+    parser.add_argument("-i", "--input", dest="input", help="input wav file", required=True)
+    parser.add_argument("-s", "--stretch", dest="stretch",help="stretch value; 1.0 = no stretch", type=float, default=8.0)
+    parser.add_argument("-w", "--window_size", dest="window_size",help="window size in seconds", type=float, default=0.25)
+    parser.add_argument("-o", "--output", dest="output", help="output wav path", required=True)
+    args = parser.parse_args()
+
+    success = SoundStretch(args.input,args.output,args.stretch,args.window_size)
+    result="finished: {}".format(args.output) if success else "error: {}".format(args.output)
+    print(result)
+
+
+if __name__ == '__main__':
+    main()
+
